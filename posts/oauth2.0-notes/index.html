@@ -1,0 +1,63 @@
+<!doctype html><html lang=en><head><title>OAuth 2.0 notes · Allinthemiddle</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=color-scheme content="light dark"><meta name=author content="pvbouwel"><meta name=description content="Just some notes to persist info acquired while digesting oauth2.0/openid connect articles"><meta name=keywords content="blog,devops,personal"><meta name=twitter:card content="summary"><meta name=twitter:title content="OAuth 2.0 notes"><meta name=twitter:description content="Just some notes to persist info acquired while digesting oauth2.0/openid connect articles"><meta property="og:url" content="http://pvbouwel.github.io/posts/oauth2.0-notes/"><meta property="og:site_name" content="Allinthemiddle"><meta property="og:title" content="OAuth 2.0 notes"><meta property="og:description" content="Just some notes to persist info acquired while digesting oauth2.0/openid connect articles"><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2022-09-01T13:21:14+02:00"><meta property="article:modified_time" content="2022-09-01T13:21:14+02:00"><meta property="article:tag" content="Security"><link rel=canonical href=http://pvbouwel.github.io/posts/oauth2.0-notes/><link rel=preload href=/fonts/fa-brands-400.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=/fonts/fa-regular-400.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=/fonts/fa-solid-900.woff2 as=font type=font/woff2 crossorigin><link rel=stylesheet href=/css/coder.min.6445a802b9389c9660e1b07b724dcf5718b1065ed2d71b4eeaf981cc7cc5fc46.css integrity="sha256-ZEWoArk4nJZg4bB7ck3PVxixBl7S1xtO6vmBzHzF/EY=" crossorigin=anonymous media=screen><link rel=stylesheet href=/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin=anonymous media=screen><link rel=icon type=image/svg+xml href=/img/favicon.svg sizes=any><link rel=icon type=image/png href=/img/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=/img/favicon-16x16.png sizes=16x16><link rel=apple-touch-icon href=/images/apple-touch-icon.png><link rel=apple-touch-icon sizes=180x180 href=/images/apple-touch-icon.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/images/safari-pinned-tab.svg color=#5bbad5></head><body class="preload-transitions colorscheme-auto"><div class=float-container><a id=dark-mode-toggle class=colorscheme-toggle><i class="fa-solid fa-adjust fa-fw" aria-hidden=true></i></a></div><main class=wrapper><nav class=navigation><section class=container><a class=navigation-title href=http://pvbouwel.github.io/>Allinthemiddle
+</a><input type=checkbox id=menu-toggle>
+<label class="menu-button float-right" for=menu-toggle><i class="fa-solid fa-bars fa-fw" aria-hidden=true></i></label><ul class=navigation-list><li class=navigation-item><a class=navigation-link href=/posts/>Blog</a></li></ul></section></nav><div class=content><section class="container post"><article><header><div class=post-title><h1 class=title><a class=title-link href=http://pvbouwel.github.io/posts/oauth2.0-notes/>OAuth 2.0 notes</a></h1></div><div class=post-meta><div class=date><span class=posted-on><i class="fa-solid fa-calendar" aria-hidden=true></i>
+<time datetime=2022-09-01T13:21:14+02:00>September 1, 2022
+</time></span><span class=reading-time><i class="fa-solid fa-clock" aria-hidden=true></i>
+2-minute read</span></div><div class=tags><i class="fa-solid fa-tag" aria-hidden=true></i>
+<span class=tag><a href=/tags/security/>Security</a></span></div></div></header><div class=post-content><h1 id=rfc6749>rfc6749
+<a class=heading-link href=#rfc6749><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h1><p><a href=https://www.rfc-editor.org/rfc/rfc6749 class=external-link target=_blank rel=noopener>source</a></p><p>The authorization code grant type is used to obtain both access
+tokens and refresh tokens and is optimized for confidential clients.
+Since this is a redirection-based flow, the client must be capable of
+interacting with the resource owner&rsquo;s user-agent (typically a web
+browser) and capable of receiving incoming requests (via redirection)
+from the authorization server.</p><pre><code> +----------+
+ | Resource |
+ |   Owner  |
+ |          |
+ +----------+
+      ^
+      |
+     (B)
+ +----|-----+          Client Identifier      +---------------+
+ |         -+----(A)-- &amp; Redirection URI ----&gt;|               |
+ |  User-   |                                 | Authorization |
+ |  Agent  -+----(B)-- User authenticates ---&gt;|     Server    |
+ |          |                                 |               |
+ |         -+----(C)-- Authorization Code ---&lt;|               |
+ +-|----|---+                                 +---------------+
+   |    |                                         ^      v
+  (A)  (C)                                        |      |
+   |    |                                         |      |
+   ^    v                                         |      |
+ +---------+                                      |      |
+ |         |&gt;---(D)-- Authorization Code ---------'      |
+ |  Client |          &amp; Redirection URI                  |
+ |         |                                             |
+ |         |&lt;---(E)----- Access Token -------------------'
+ +---------+       (w/ Optional Refresh Token) 
+</code></pre><p><a href=https://www.rfc-editor.org/rfc/rfc6749#section-4.1 class=external-link target=_blank rel=noopener>https://www.rfc-editor.org/rfc/rfc6749#section-4.1</a></p><h2 id=aws-cognitos-authorization-code-grant>AWS Cognito&rsquo;s authorization code grant:
+<a class=heading-link href=#aws-cognitos-authorization-code-grant><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><p><a href=https://aws.amazon.com/blogs/mobile/understanding-amazon-cognito-user-pool-oauth-2-0-grants/ class=external-link target=_blank rel=noopener>https://aws.amazon.com/blogs/mobile/understanding-amazon-cognito-user-pool-oauth-2-0-grants/</a></p><p>Cognito comes by default with an auth app which gets hosted on an URI with a chosen domain name:</p><p>https://.auth..amazoncognito.com</p><p>In there you have the different endpoints for your authn/authz flows which are documented on</p><p><a href=https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-userpools-server-contract-reference.html class=external-link target=_blank rel=noopener>https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-userpools-server-contract-reference.html</a></p><h2 id=verification-of-jwt-tokens-from-cognito>Verification of JWT tokens from Cognito
+<a class=heading-link href=#verification-of-jwt-tokens-from-cognito><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><p>The key information for verification depends on the user pool and can be retrieved from:</p><p><a href=https://cognito-idp.Region.amazonaws.com/your_user_pool_ID/.well-known/jwks.json class=external-link target=_blank rel=noopener>https://cognito-idp.Region.amazonaws.com/your_user_pool_ID/.well-known/jwks.json</a> . For details</p><p>see the knowledge-center article <a href=https://aws.amazon.com/premiumsupport/knowledge-center/decode-verify-cognito-json-token/ class=external-link target=_blank rel=noopener>https://aws.amazon.com/premiumsupport/knowledge-center/decode-verify-cognito-json-token/</a></p><h2 id=alb-authnauthz>ALB authn/authz
+<a class=heading-link href=#alb-authnauthz><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><p><a href=https://docs.aws.amazon.com/elasticloadbalancing/latest/application/listener-authenticate-users.html class=external-link target=_blank rel=noopener>https://docs.aws.amazon.com/elasticloadbalancing/latest/application/listener-authenticate-users.html</a></p><p>The loadbalancer sets the following headers:</p><pre><code>x-amzn-oidc-accesstoken
+
+The access token from the token endpoint, in plain text.
+
+x-amzn-oidc-identity
+
+The subject field (sub) from the user info endpoint, in plain text.
+
+x-amzn-oidc-data
+
+The user claims, in JSON web tokens (JWT) format.
+</code></pre><h2 id=miscellaneous-notes>Miscellaneous notes
+<a class=heading-link href=#miscellaneous-notes><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><ul><li>redirect_uri&rsquo;s have to match</li><li>state is also used to avoid cross-side request forgery attacks</li></ul></div><footer></footer></article></section></div><footer class=footer><section class=container>©
+2009 -
+2025
+pvbouwel
+·
+Powered by <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> & <a href=https://github.com/luizdepra/hugo-coder/ target=_blank rel=noopener>Coder</a>.</section></footer></main><script src=/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script></body></html>

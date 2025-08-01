@@ -1,14 +1,32 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Containers on Allinthemiddle</title><link>http://blog.allinthemiddle.com/tags/containers/</link><description>Recent content in Containers on Allinthemiddle</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sat, 25 Nov 2023 15:28:48 +0200</lastBuildDate><atom:link href="http://blog.allinthemiddle.com/tags/containers/index.xml" rel="self" type="application/rss+xml"/><item><title>Podman pitfalls</title><link>http://blog.allinthemiddle.com/posts/podman-pitfalls/</link><pubDate>Sat, 25 Nov 2023 15:28:48 +0200</pubDate><guid>http://blog.allinthemiddle.com/posts/podman-pitfalls/</guid><description>&lt;h1 id="raw-notes">Raw notes&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Containers on Allinthemiddle</title><link>http://pvbouwel.github.io/tags/containers/</link><description>Recent content in Containers on Allinthemiddle</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sat, 25 Nov 2023 15:28:48 +0200</lastBuildDate><atom:link href="http://pvbouwel.github.io/tags/containers/index.xml" rel="self" type="application/rss+xml"/><item><title>Podman pitfalls</title><link>http://pvbouwel.github.io/posts/podman-pitfalls/</link><pubDate>Sat, 25 Nov 2023 15:28:48 +0200</pubDate><guid>http://pvbouwel.github.io/posts/podman-pitfalls/</guid><description>&lt;h1 id="raw-notes">
+ Raw notes
+ &lt;a class="heading-link" href="#raw-notes">
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
+ &lt;span class="sr-only">Link to heading&lt;/span>
+ &lt;/a>
+&lt;/h1>
 &lt;p>This is not a full post but rather some common issues encountered with Podman and pointers to solutions.&lt;/p>
-&lt;h2 id="fedora-docs-are-your-friend">Fedora docs are your friend&lt;/h2>
-&lt;p>&lt;a href="https://docs.fedoraproject.org/en-US/fedora-coreos/">https://docs.fedoraproject.org/en-US/fedora-coreos/&lt;/a>&lt;/p>
-&lt;h2 id="selinux-might-be-on">SELinux might be on&lt;/h2>
-&lt;p>If you are having permission denied errors watch out for SELinux. Check your podman VM and verify &lt;code>/etc/selinux/config&lt;/code>. You can consider switching to permissive mode + reboot&lt;/p>
-&lt;h2 id="certificate-errors">Certificate errors&lt;/h2>
-&lt;h3 id="mitm">MITM&lt;/h3>
-&lt;p>Some company like to or must inspect their users traffic. Generally this is done by having a transparent proxy which terminates SSL/TLS and uses a self-signed certificate that is owned by the company and can be considered trusted. The default podman VM won´t trust this certificate. You can try the following:&lt;/p></description></item><item><title>Kubernetes cheat sheet</title><link>http://blog.allinthemiddle.com/posts/kubernetes-cheatsheet/</link><pubDate>Sat, 25 Nov 2023 13:16:17 +0200</pubDate><guid>http://blog.allinthemiddle.com/posts/kubernetes-cheatsheet/</guid><description>&lt;h1 id="debugging">Debugging&lt;/h1>
+&lt;h2 id="fedora-docs-are-your-friend">
+ Fedora docs are your friend
+ &lt;a class="heading-link" href="#fedora-docs-are-your-friend">
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
+ &lt;span class="sr-only">Link to heading&lt;/span>
+ &lt;/a>
+&lt;/h2>
+&lt;p>&lt;a href="https://docs.fedoraproject.org/en-US/fedora-coreos/" class="external-link" target="_blank" rel="noopener">https://docs.fedoraproject.org/en-US/fedora-coreos/&lt;/a>&lt;/p>
+&lt;h2 id="selinux-might-be-on">
+ SELinux might be on
+ &lt;a class="heading-link" href="#selinux-might-be-on">
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
+ &lt;span class="sr-only">Link to heading&lt;/span>
+ &lt;/a>
+&lt;/h2>
+&lt;p>If you are having permission denied errors watch out for SELinux. Check your podman VM and verify &lt;code>/etc/selinux/config&lt;/code>. You can consider switching to permissive mode + reboot&lt;/p></description></item><item><title>Kubernetes cheat sheet</title><link>http://pvbouwel.github.io/posts/kubernetes-cheatsheet/</link><pubDate>Sat, 25 Nov 2023 13:16:17 +0200</pubDate><guid>http://pvbouwel.github.io/posts/kubernetes-cheatsheet/</guid><description>&lt;h1 id="debugging">
+ Debugging
+ &lt;a class="heading-link" href="#debugging">
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
+ &lt;span class="sr-only">Link to heading&lt;/span>
+ &lt;/a>
+&lt;/h1>
 &lt;p>Sometimes debugging is hard because you are using an optimized images without troubleshooting tools or even a shell. Ephemeral containers come to the rescue there with some useful kubectl debug commands but if you need to see the attached volumes these tools fall short and while it is possible to do it manually it is tedious. Make sure you are aware of kubectl-superdebug :
-&lt;a href="https://medium.com/datamindedbe/debugging-running-pods-on-kubernetes-2ba160c47ef5">https://medium.com/datamindedbe/debugging-running-pods-on-kubernetes-2ba160c47ef5&lt;/a>&lt;/p>
-&lt;h1 id="resources">Resources&lt;/h1>
-&lt;h2 id="all-resources-in-a-namespace">All resources in a namespace&lt;/h2>
-&lt;p>Just iterate over the resource type and look for them:&lt;/p></description></item></channel></rss>
+&lt;a href="https://medium.com/datamindedbe/debugging-running-pods-on-kubernetes-2ba160c47ef5" class="external-link" target="_blank" rel="noopener">https://medium.com/datamindedbe/debugging-running-pods-on-kubernetes-2ba160c47ef5&lt;/a>&lt;/p></description></item></channel></rss>

@@ -1,4 +1,16 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Belgium on Allinthemiddle</title><link>http://blog.allinthemiddle.com/tags/belgium/</link><description>Recent content in Belgium on Allinthemiddle</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sun, 23 Jan 2022 13:24:51 +0200</lastBuildDate><atom:link href="http://blog.allinthemiddle.com/tags/belgium/index.xml" rel="self" type="application/rss+xml"/><item><title>Belgium eid authentication in Firefox</title><link>http://blog.allinthemiddle.com/posts/be-eid-firefox-auth/</link><pubDate>Sun, 23 Jan 2022 13:24:51 +0200</pubDate><guid>http://blog.allinthemiddle.com/posts/be-eid-firefox-auth/</guid><description>&lt;h1 id="update-outdated-warning">UPDATE: outdated warning&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Belgium on Allinthemiddle</title><link>http://pvbouwel.github.io/tags/belgium/</link><description>Recent content in Belgium on Allinthemiddle</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sun, 23 Jan 2022 13:24:51 +0200</lastBuildDate><atom:link href="http://pvbouwel.github.io/tags/belgium/index.xml" rel="self" type="application/rss+xml"/><item><title>Belgium eid authentication in Firefox</title><link>http://pvbouwel.github.io/posts/be-eid-firefox-auth/</link><pubDate>Sun, 23 Jan 2022 13:24:51 +0200</pubDate><guid>http://pvbouwel.github.io/posts/be-eid-firefox-auth/</guid><description>&lt;h1 id="update-outdated-warning">
+ UPDATE: outdated warning
+ &lt;a class="heading-link" href="#update-outdated-warning">
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
+ &lt;span class="sr-only">Link to heading&lt;/span>
+ &lt;/a>
+&lt;/h1>
 &lt;p>By now the issues have been fixed upstream this post purely remains as documentation in case it has value for someone going on his own troubleshooting journey.&lt;/p>
-&lt;h1 id="intro">Intro&lt;/h1>
+&lt;h1 id="intro">
+ Intro
+ &lt;a class="heading-link" href="#intro">
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
+ &lt;span class="sr-only">Link to heading&lt;/span>
+ &lt;/a>
+&lt;/h1>
 &lt;p>Since 2003 the Belgian government issues electronic identity cards called &amp;ldquo;eID&amp;rdquo; cards. These cards have cryptographic keys on them that allow digital signatures. This enables you to authenticate to government e-services using a smart card reader, your eID and pin (which you have to set when you receive your eID card). While setting up the software on Windows is straight forward I found the process for Linux less trivial hence I like to documented it.&lt;/p></description></item></channel></rss>
