@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Allinthemiddle</title><link>http://blog.allinthemiddle.com/posts/</link><description>Recent content in Posts on Allinthemiddle</description><generator>Hugo</generator><language>en</language><lastBuildDate>Wed, 30 Jul 2025 14:57:49 +0200</lastBuildDate><atom:link href="http://blog.allinthemiddle.com/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Global Precommit</title><link>http://blog.allinthemiddle.com/posts/global-precommit/</link><pubDate>Wed, 30 Jul 2025 14:57:49 +0200</pubDate><guid>http://blog.allinthemiddle.com/posts/global-precommit/</guid><description>&lt;h1 id="global-precommit">Global Precommit&lt;/h1></description></item><item><title>Custom routing for Linux process</title><link>http://blog.allinthemiddle.com/posts/custom-routing-for-linux-process/</link><pubDate>Tue, 07 May 2024 14:57:49 +0200</pubDate><guid>http://blog.allinthemiddle.com/posts/custom-routing-for-linux-process/</guid><description>&lt;h1 id="control-network-routes-for-specific-processes-on-linux">Control network routes for specific processes on Linux&lt;/h1>
+&lt;h2 id="intro">Intro&lt;/h2>
+&lt;p>I wanted to control the flow of packets for specific processes on my Linux (Ubuntu 22.04) such that they won&amp;rsquo;t go through a tunnel device which is setup for VPN connectivity. The VPN software is provided as is and I do not administer its configuration.&lt;/p>
+&lt;p>Please note that this post assumes you have understanding of network routing and are equiped to troubleshoot problems. If not you should first learn how networks work first. Each network setup has its own specifics. Appliance vendors come up with defaults and automation for the most common scenarios. Custom configuration can conflict with that and might isolate you from network access. All responsibilities remain those of the reader.&lt;/p></description></item><item><title>Podman pitfalls</title><link>http://blog.allinthemiddle.com/posts/podman-pitfalls/</link><pubDate>Sat, 25 Nov 2023 15:28:48 +0200</pubDate><guid>http://blog.allinthemiddle.com/posts/podman-pitfalls/</guid><description>&lt;h1 id="raw-notes">Raw notes&lt;/h1>
+&lt;p>This is not a full post but rather some common issues encountered with Podman and pointers to solutions.&lt;/p>
+&lt;h2 id="fedora-docs-are-your-friend">Fedora docs are your friend&lt;/h2>
+&lt;p>&lt;a href="https://docs.fedoraproject.org/en-US/fedora-coreos/">https://docs.fedoraproject.org/en-US/fedora-coreos/&lt;/a>&lt;/p>
+&lt;h2 id="selinux-might-be-on">SELinux might be on&lt;/h2>
+&lt;p>If you are having permission denied errors watch out for SELinux. Check your podman VM and verify &lt;code>/etc/selinux/config&lt;/code>. You can consider switching to permissive mode + reboot&lt;/p>
+&lt;h2 id="certificate-errors">Certificate errors&lt;/h2>
+&lt;h3 id="mitm">MITM&lt;/h3>
+&lt;p>Some company like to or must inspect their users traffic. Generally this is done by having a transparent proxy which terminates SSL/TLS and uses a self-signed certificate that is owned by the company and can be considered trusted. The default podman VM won´t trust this certificate. You can try the following:&lt;/p></description></item><item><title>Kubernetes cheat sheet</title><link>http://blog.allinthemiddle.com/posts/kubernetes-cheatsheet/</link><pubDate>Sat, 25 Nov 2023 13:16:17 +0200</pubDate><guid>http://blog.allinthemiddle.com/posts/kubernetes-cheatsheet/</guid><description>&lt;h1 id="debugging">Debugging&lt;/h1>
+&lt;p>Sometimes debugging is hard because you are using an optimized images without troubleshooting tools or even a shell. Ephemeral containers come to the rescue there with some useful kubectl debug commands but if you need to see the attached volumes these tools fall short and while it is possible to do it manually it is tedious. Make sure you are aware of kubectl-superdebug :
+&lt;a href="https://medium.com/datamindedbe/debugging-running-pods-on-kubernetes-2ba160c47ef5">https://medium.com/datamindedbe/debugging-running-pods-on-kubernetes-2ba160c47ef5&lt;/a>&lt;/p>
+&lt;h1 id="resources">Resources&lt;/h1>
+&lt;h2 id="all-resources-in-a-namespace">All resources in a namespace&lt;/h2>
+&lt;p>Just iterate over the resource type and look for them:&lt;/p></description></item><item><title>OAuth 2.0 notes</title><link>http://blog.allinthemiddle.com/posts/oauth2.0-notes/</link><pubDate>Thu, 01 Sep 2022 13:21:14 +0200</pubDate><guid>http://blog.allinthemiddle.com/posts/oauth2.0-notes/</guid><description>&lt;h1 id="rfc6749">rfc6749&lt;/h1>
+&lt;p>&lt;a href="https://www.rfc-editor.org/rfc/rfc6749">source&lt;/a>&lt;/p>
+&lt;p>The authorization code grant type is used to obtain both access
+tokens and refresh tokens and is optimized for confidential clients.
+Since this is a redirection-based flow, the client must be capable of
+interacting with the resource owner&amp;rsquo;s user-agent (typically a web
+browser) and capable of receiving incoming requests (via redirection)
+from the authorization server.&lt;/p>
+&lt;pre>&lt;code> +----------+
+ | Resource |
+ | Owner |
+ | |
+ +----------+
+ ^
+ |
+ (B)
+ +----|-----+ Client Identifier +---------------+
+ | -+----(A)-- &amp;amp; Redirection URI ----&amp;gt;| |
+ | User- | | Authorization |
+ | Agent -+----(B)-- User authenticates ---&amp;gt;| Server |
+ | | | |
+ | -+----(C)-- Authorization Code ---&amp;lt;| |
+ +-|----|---+ +---------------+
+ | | ^ v
+ (A) (C) | |
+ | | | |
+ ^ v | |
+ +---------+ | |
+ | |&amp;gt;---(D)-- Authorization Code ---------' |
+ | Client | &amp;amp; Redirection URI |
+ | | |
+ | |&amp;lt;---(E)----- Access Token -------------------'
+ +---------+ (w/ Optional Refresh Token) 
+&lt;/code>&lt;/pre>
+&lt;p>&lt;a href="https://www.rfc-editor.org/rfc/rfc6749#section-4.1">https://www.rfc-editor.org/rfc/rfc6749#section-4.1&lt;/a>&lt;/p></description></item><item><title>Belgium eid authentication in Firefox</title><link>http://blog.allinthemiddle.com/posts/be-eid-firefox-auth/</link><pubDate>Sun, 23 Jan 2022 13:24:51 +0200</pubDate><guid>http://blog.allinthemiddle.com/posts/be-eid-firefox-auth/</guid><description>&lt;h1 id="update-outdated-warning">UPDATE: outdated warning&lt;/h1>
+&lt;p>By now the issues have been fixed upstream this post purely remains as documentation in case it has value for someone going on his own troubleshooting journey.&lt;/p>
+&lt;h1 id="intro">Intro&lt;/h1>
+&lt;p>Since 2003 the Belgian government issues electronic identity cards called &amp;ldquo;eID&amp;rdquo; cards. These cards have cryptographic keys on them that allow digital signatures. This enables you to authenticate to government e-services using a smart card reader, your eID and pin (which you have to set when you receive your eID card). While setting up the software on Windows is straight forward I found the process for Linux less trivial hence I like to documented it.&lt;/p></description></item><item><title>Serialization Anomily when using MVCC (The good, the bad &amp; the ugly)</title><link>http://blog.allinthemiddle.com/posts/serialization-anomyly-for-mvcc/</link><pubDate>Fri, 03 Dec 2021 13:34:35 +0200</pubDate><guid>http://blog.allinthemiddle.com/posts/serialization-anomyly-for-mvcc/</guid><description>&lt;h2 id="intro">Intro&lt;/h2>
+&lt;p>When working in-depth with databases sooner or later you will encounter transaction isolation levels. If you are new to transaction isolation check out the &lt;a href="https://www.postgresql.org/docs/9.5/transaction-iso.html">Postgress transaction isolation documentation&lt;/a> because that documentation team did an amazing job! In this post I&amp;rsquo;d like to go into more depth on one issue mentioned on that page the serialization anomaly.&lt;/p>
+&lt;h2 id="real-life-example">Real life example&lt;/h2>
+&lt;p>A picture says more than a thousands words so let&amp;rsquo;s try to create a mental picture by talking about a real-life scenario. For this assume we are creating an application that has to manage financial accounts.&lt;/p></description></item><item><title>Setting up Pyhon 3.7 with SSL support</title><link>http://blog.allinthemiddle.com/posts/setup-of-python3.7-with-ssl/</link><pubDate>Sun, 23 Dec 2018 14:08:57 +0200</pubDate><guid>http://blog.allinthemiddle.com/posts/setup-of-python3.7-with-ssl/</guid><description>&lt;h1 id="intro">Intro&lt;/h1>
+&lt;p>If you are lucky enough to have Python 3.7 in your OS repositories then you can skip this post if not you might find a hard time setting up Python 3.7 with SSL support. Python 3.7 requires a recent version of openssl but even when that one has been installed in my case it would not find it so I&amp;rsquo;m documenting the steps on how I got it to work.&lt;/p></description></item></channel></rss>
